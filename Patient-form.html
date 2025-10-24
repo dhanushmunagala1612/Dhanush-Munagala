@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>V Care Medicals — Patient Registration (HW2)</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <!-- Banner -->
+  <header class="banner" role="banner">
+    <img src="hospital-logo.png" alt="V Care Medicals" width="72" height="72" />
+    <div>
+      <div class="brand">V Care Medicals</div>
+      <div class="help">Today is: <span id="todayStr" aria-live="polite"></span></div>
+    </div>
+  </header>
+
+  <!-- Two-column layout: left=form, right=review -->
+  <main class="layout">
+    <section class="form-card" aria-labelledby="formTitle">
+      <h1 id="formTitle">Patient Registration Form</h1>
+      <p class="help">All fields marked with * are required.</p>
+
+      <form id="patientForm" action="thankyou.html" method="post" novalidate>
+        <!-- Identity -->
+        <h2 class="section-title">Identity</h2>
+        <table role="presentation" class="form-table">
+          <tr>
+            <td>
+              <label for="firstname">First Name *</label>
+              <input type="text" id="firstname" name="firstname" required maxlength="30"
+                     title="Enter 1–30 characters; letters, apostrophes and dashes only"
+                     pattern="[A-Za-z' -]{1,30}" autocomplete="given-name" />
+              <span class="msg" id="msg-firstname"></span>
+            </td>
+            <td class="narrow">
+              <label for="middleinit">Middle Initial</label>
+              <input type="text" id="middleinit" name="middleinit" maxlength="1"
+                     title="Optional. Exactly 1 letter"
+                     pattern="[A-Za-z]{1}" autocomplete="additional-name" />
+              <span class="msg" id="msg-middleinit"></span>
+            </td>
+            <td>
+              <label for="lastname">Last Name *</label>
+              <input type="text" id="lastname" name="lastname" required maxlength="30"
+                     title="Enter 1–30 characters; letters, digits (2–5 allowed), apostrophes and dashes"
+                     pattern="[A-Za-z0-9' -]{1,30}" autocomplete="family-name" />
+              <span class="msg" id="msg-lastname"></span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="dob">Date of Birth *</label>
+              <input type="date" id="dob" name="dob" required
+                     title="Birthdate cannot be in the future or more than 120 years ago" />
+              <span class="msg" id="msg-dob"></span>
+            </td>
+            <td colspan="2">
+              <label for="ssn">ID / SSN (masked)</label>
+              <input type="password" id="ssn" name="ssn" maxlength="11"
+                     title="Optional. 9 digits; hyphens allowed (e.g., 123-45-6789)"
+                     pattern="\d{3}-?\d{2}-?\d{4}" autocomplete="off" />
+              <span class="msg" id="msg-ssn"></span>
+            </td>
+          </tr>
+        </table>
+
+        <!-- Contact -->
+        <h2 class="section-title">Contact</h2>
+        <table role="presentation" class="form-table">
+          <tr>
+            <td>
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" name="email" required maxlength="64"
+                     title="Use the format name@domain.tld"
+                     autocomplete="email" />
+              <span class="msg" id="msg-email"></span>
+            </td>
+            <td>
+              <label for="phone">Phone *</label>
+              <input type="text" id="phone" name="phone" required maxlength="12"
+                     title="Use 000-000-0000 format"
+                     pattern="\d{3}-\d{3}-\d{4}"
+                     inputmode="numeric" autocomplete="tel" placeholder="000-000-0000" />
+              <span class="msg" id="msg-phone"></span>
+            </td>
+          </tr>
+        </table>
+
+        <!-- Address -->
+        <h2 class="section-title">Address</h2>
+        <table role="presentation" class="form-table">
+          <tr>
+            <td colspan="3">
+              <label for="addr1">Address Line 1 *</label>
+              <input type="text" id="addr1" name="addr1" required maxlength="30"
+                     title="2–30 characters"
+                     pattern=".{2,30}" autocomplete="address-line1" />
+              <span class="msg" id="msg-addr1"></span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <label for="addr2">Address Line 2</label>
+              <input type="text" id="addr2" name="addr2" maxlength="30"
+                     title="Optional. 2–30 characters"
+                     pattern="(.{2,30})?" autocomplete="address-line2" />
+              <span class="msg" id="msg-addr2"></span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="city">City *</label>
+              <input type="text" id="city" name="city" required maxlength="30"
+                     title="2–30 characters"
+                     pattern=".{2,30}" autocomplete="address-level2" />
+              <span class="msg" id="msg-city"></span>
+            </td>
+            <td>
+              <label for="state">State *</label>
+              <select id="state" name="state" required title="Choose a state">
+                <option value="">— Select —</option>
+                <option>AL</option><option>AK</option><option>AZ</option><option>AR</option><option>CA</option>
+                <option>CO</option><option>CT</option><option>DE</option><option>DC</option><option>FL</option>
+                <option>GA</option><option>HI</option><option>ID</option><option>IL</option><option>IN</option>
+                <option>IA</option><option>KS</option><option>KY</option><option>LA</option><option>ME</option>
+                <option>MD</option><option>MA</option><option>MI</option><option>MN</option><option>MS</option>
+                <option>MO</option><option>MT</option><option>NE</option><option>NV</option><option>NH</option>
+                <option>NJ</option><option>NM</option><option>NY</option><option>NC</option><option>ND</option>
+                <option>OH</option><option>OK</option><option>OR</option><option>PA</option><option>PR</option>
+                <option>RI</option><option>SC</option><option>SD</option><option>TN</option><option>TX</option>
+                <option>UT</option><option>VT</option><option>VA</option><option>WA</option><option>WI</option>
+                <option>WV</option><option>WY</option>
+              </select>
+              <span class="msg" id="msg-state"></span>
+            </td>
+            <td>
+              <label for="zip">ZIP Code *</label>
+              <input type="text" id="zip" name="zip" required maxlength="10"
+                     title="5 digits or ZIP+4 (e.g., 77002 or 77002-1234)"
+                     pattern="^\d{5}(-\d{4})?$" inputmode="numeric" autocomplete="postal-code" />
+              <span class="msg" id="msg-zip"></span>
+            </td>
+          </tr>
+        </table>
+
+        <!-- Medical / Choices -->
+        <h2 class="section-title">Medical & Preferences</h2>
+        <table role="presentation" class="form-table">
+          <tr>
+            <td>
+              <fieldset>
+                <legend>Gender</legend>
+                <label><input type="radio" name="gender" value="M" title="Male"> Male</label>
+                <label><input type="radio" name="gender" value="F" title="Female"> Female</label>
+                <label><input type="radio" name="gender" value="O" title="Other"> Other</label>
+              </fieldset>
+            </td>
+            <td>
+              <fieldset>
+                <legend>Vaccinated?</legend>
+                <label><input type="radio" name="vaccinated" value="Y"> Yes</label>
+                <label><input type="radio" name="vaccinated" value="N"> No</label>
+                <label><input type="radio" name="vaccinated" value="U"> Unsure</label>
+              </fieldset>
+            </td>
+            <td>
+              <div><strong>History (check all that apply)</strong></div>
+              <label><input type="checkbox" name="hx" value="Chickenpox"> Chickenpox</label>
+              <label><input type="checkbox" name="hx" value="Measles"> Measles</label>
+              <label><input type="checkbox" name="hx" value="Mumps"> Mumps</label>
+              <label><input type="checkbox" name="hx" value="Heart Disease"> Heart Disease</label>
+              <label><input type="checkbox" name="hx" value="Covid-19"> Covid-19</label>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <label for="salary">Desired Salary ($20,000–$200,000)</label>
+              <input type="range" id="salary" name="salary" min="20000" max="200000" step="1000"
+                     title="Slide to choose a salary" oninput="updateSliderValue(this.value)" />
+              <span id="salaryValue" class="mono" aria-live="polite">$20,000</span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <label for="symptoms">Current Symptoms / Notes</label>
+              <textarea id="symptoms" name="symptoms" cols="50" rows="3" maxlength="500"
+                        title="Optional. Avoid double quotes (\")"
+                        pattern="[^"]*" placeholder="Describe symptoms (e.g., headache, mild fever)…"></textarea>
+              <span class="msg" id="msg-symptoms"></span>
+            </td>
+          </tr>
+        </table>
+
+        <!-- Account -->
+        <h2 class="section-title">Account</h2>
+        <table role="presentation" class="form-table">
+          <tr>
+            <td>
+              <label for="userid">Desired User ID *</label>
+              <input type="text" id="userid" name="userid" required maxlength="30"
+                     title="5–30 chars; start with a letter; letters, numbers, _ or -; no spaces. Will be lowercased on review."
+                     pattern="[A-Za-z][A-Za-z0-9_-]{4,29}" autocomplete="username" />
+              <span class="msg" id="msg-userid"></span>
+            </td>
+            <td>
+              <label for="password">Password *</label>
+              <input type="password" id="password" name="password" required maxlength="30"
+                     title="8–30 chars; at least 1 upper, 1 lower, 1 digit, 1 special (no \" quotes)"
+                     pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}|:<>?~\-=/.,`~]).{8,30}" autocomplete="new-password" />
+              <span class="msg" id="msg-password"></span>
+            </td>
+            <td>
+              <label for="password2">Re-enter Password *</label>
+              <input type="password" id="password2" name="password2" required maxlength="30"
+                     title="Must match the first password" autocomplete="new-password" />
+              <span class="msg" id="msg-password2"></span>
+            </td>
+          </tr>
+        </table>
+
+        <!-- Consent & Actions -->
+        <div class="actions">
+          <label class="tos"><input type="checkbox" id="consent_tos" name="consent_tos" required /> I agree to the Terms of Service *</label>
+          <div class="buttons">
+            <button type="reset" class="button secondary">Start Over</button>
+            <button type="button" class="button ghost" id="reviewBtn">Review</button>
+            <button type="submit" class="button" id="submitBtn">Submit</button>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <!-- Review panel (right side) -->
+    <aside id="reviewSection" aria-labelledby="reviewTitle" hidden>
+      <h2 id="reviewTitle">Review Your Entries</h2>
+      <div class="review-grid">
+        <div class="row"><span class="label">Name</span><span id="r_name"></span><span id="p_name" class="pass"></span></div>
+        <div class="row"><span class="label">Date of Birth</span><span id="r_dob"></span><span id="p_dob"></span></div>
+        <div class="row"><span class="label">Email</span><span id="r_email"></span><span id="p_email"></span></div>
+        <div class="row"><span class="label">Phone</span><span id="r_phone"></span><span id="p_phone"></span></div>
+        <div class="row multi">
+          <span class="label">Address</span>
+          <div>
+            <div id="r_addr1"></div>
+            <div id="r_addr2"></div>
+            <div id="r_city_state_zip"></div>
+          </div>
+          <span id="p_address"></span>
+        </div>
+        <div class="row"><span class="label">History</span><span id="r_history"></span><span></span></div>
+        <div class="row"><span class="label">Vaccinated?</span><span id="r_vax"></span><span></span></div>
+        <div class="row"><span class="label">Salary</span><span id="r_salary"></span><span></span></div>
+        <div class="row"><span class="label">Symptoms</span><span id="r_symptoms"></span><span></span></div>
+        <div class="row"><span class="label">User ID</span><span id="r_userid"></span><span id="p_userid"></span></div>
+        <div class="row"><span class="label">Password</span><span id="r_password"></span><span id="p_password"></span></div>
+      </div>
+      <p class="note">(For security, we normally would not display the password.)</p>
+    </aside>
+  </main>
+
+  <footer id="footer">
+    <div>V Care Medicals | Smith Street, Suite 1011, Houston, TX 77496</div>
+    <div><button class="button secondary" type="button" onclick="alert('Contact form coming soon!')">Contact Us</button></div>
+  </footer>
+</body>
+</html>

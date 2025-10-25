@@ -1,269 +1,275 @@
 <!DOCTYPE html>
+<!--
+Program name: patient-form.html
+Author: Dhanush Munagala
+Date created: 2025-10-24
+Version: 3.0
+Description: Updated Patient Registration Form for MIS7375 Homework 2 with dynamic Review section, validations, and JavaScript integration.
+-->
+
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>V Care Medicals — Patient Registration (HW2)</title>
+  <title>V Care Medicals — Patient Registration</title>
   <link rel="stylesheet" href="style.css" />
-  <script defer src="script.js"></script>
+  <script defer src="scripts.js"></script>
 </head>
+
 <body>
-  <!-- Banner -->
-  <header class="banner" role="banner">
-    <img src="hospital-logo.png" alt="V Care Medicals" width="72" height="72" />
-    <div>
-      <div class="brand">V Care Medicals</div>
-      <div class="help">Today is: <span id="todayStr" aria-live="polite"></span></div>
+  <!-- ---------- Banner ---------- -->
+<header class="banner">
+  <div class="banner-left">
+    <img src="hospital-logo.png" alt="V Care Medicals" width="140" height="140" />
+    <div class="brand">V Care Medicals</div>
+  </div>
+  <div class="banner-right">
+    <div class="help">Today is: <span id="todayStr"></span></div>
+  </div>
+</header>
+
+  <!-- ---------- Form ---------- -->
+  <main class="form-card">
+    <h1>Patient Registration Form</h1>
+    <p class="help">All fields marked with * are required.</p>
+
+    <form action="thankyou.html">
+      <!-- Identity -->
+      <h2 class="section-title">Identity</h2>
+      <table role="presentation">
+        <tr>
+          <td>
+            <label for="firstname">First Name *</label>
+            <input type="text" id="firstname" name="firstname" maxlength="30" required pattern="^[A-Za-z'-]{1,30}$" title="Only letters, apostrophes, or dashes are allowed" aria-describedby="err_firstname"/>
+            <div class="field-error" id="err_firstname" role="alert" aria-live="polite"></div>
+          </td>
+          <td style="width:120px">
+            <label for="middle">Middle Initial</label>
+            <input type="text" id="middleinit" name="middleinit" maxlength="1" pattern="^[A-Za-z]?$" title="One letter only (leave blank if none)" aria-describedby="err_middleinit"/>
+            <div class="field-error" id="err_middleinit" role="alert" aria-live="polite"></div>
+          </td>
+          <td>
+            <label for="lastname">Last Name *</label>
+            <input type="text" id="lastname" name="lastname" maxlength="30" required aria-describedby="err_lastname" title="Letters, apostrophes, dashes, and suffix like 2nd, 3rd, 4th, 5th"/>
+            <div class="field-error" id="err_lastname" role="alert" aria-live="polite"></div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="dob">Date of Birth (MM/DD/YYYY) *</label>
+            <input type="text" id="dob" name="dob" placeholder="MM/DD/YYYY" required maxlength="10" pattern="^(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/(19|20)\d{2}$" title="Enter date as MM/DD/YYYY (e.g., 12/16/2001)" aria-describedby="err_dob"/>
+            <div class="field-error" id="err_dob" role="alert" aria-live="polite"></div>
+          </td>
+          <td colspan="2">
+            <label for="ssn">Social Security (masked)</label>
+            <input type="password" id="ssn" name="ssn" maxlength="11" inputmode="numeric" placeholder="123-45-6789" pattern="\d{3}-\d{2}-\d{4}" title="Enter 9 digits; will auto-format as XXX-XX-XXXX" required />
+          </td>
+        </tr>
+      </table>
+
+      <!-- Address -->
+      <h2 class="section-title">Address</h2>
+      <table role="presentation">
+        <tr>
+          <td colspan="3">
+            <label for="address1">Address Line 1 *</label>
+            <input type="text" id="address1" name="address1" maxlength="30" required title="Enter your primary street address." />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <label for="address2">Address Line 2</label>
+            <input type="text" id="address2" name="address2" maxlength="30" title="Optional secondary address." />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="city">City *</label>
+            <input type="text" id="city" name="city" maxlength="30" required pattern="[A-Za-z .'-]{1,30}" title="Letters only." />
+          </td>
+          <td>
+            <label for="state">State *</label>
+            <select id="state" name="state" required title="Select your state.">
+              <option value="">Select…</option>
+              <option>AL</option><option>AK</option><option>AZ</option><option>AR</option><option>CA</option>
+              <option>CO</option><option>CT</option><option>DE</option><option>DC</option><option>FL</option>
+              <option>GA</option><option>HI</option><option>ID</option><option>IL</option><option>IN</option>
+              <option>IA</option><option>KS</option><option>KY</option><option>LA</option><option>ME</option>
+              <option>MD</option><option>MA</option><option>MI</option><option>MN</option><option>MS</option>
+              <option>MO</option><option>MT</option><option>NE</option><option>NV</option><option>NH</option>
+              <option>NJ</option><option>NM</option><option>NY</option><option>NC</option><option>ND</option>
+              <option>OH</option><option>OK</option><option>OR</option><option>PA</option><option>PR</option>
+              <option>RI</option><option>SC</option><option>SD</option><option>TN</option><option>TX</option>
+              <option>UT</option><option>VT</option><option>VA</option><option>WA</option><option>WI</option>
+              <option>WV</option><option>WY</option>
+            </select>
+          </td>
+          <td>
+            <label for="zip">ZIP Code *</label>
+            <input type="text" id="zip" name="zip" maxlength="10" required pattern="\d{5}(-\d{4})?" title="Enter a 5 or 9 digit ZIP code." />
+          </td>
+        </tr>
+      </table>
+
+      <!-- Contact -->
+      <h2 class="section-title">Contact</h2>
+      <table role="presentation">
+        <tr>
+          <td>
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="email" maxlength="40" required title="Enter your email (e.g., name@domain.com)" />
+          </td>
+          <td>
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone1" name="phone1" maxlength="14" placeholder="(123) 456-7890" required pattern="\(\d{3}\)\s?\d{3}-\d{4}" title="Enter a 10-digit phone number in the format (123) 456-7890" aria-describedby="err_phone"/>
+            <div class="field-error" id="err_phone" role="alert" aria-live="polite"></div>
+          </td>
+        </tr>
+      </table>
+
+      <!-- Account -->
+      <h2 class="section-title">Account</h2>
+      <table role="presentation">
+        <tr>
+          <td>
+            <label for="userid">Desired User ID *</label>
+            <input type="text" id="userid" name="userid" maxlength="20" required pattern="[A-Za-z][A-Za-z0-9-_]{4,19}" title="Must start with a letter; letters, numbers, dashes, underscores allowed." />
+          </td>
+          <td>
+            <label for="password">Password *</label>
+            <input type="password" id="password" name="password" maxlength="64" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+~]).{8,}" title="8+ chars, with uppercase, lowercase, number, and special char." />
+            <div id="passwordMessage" class="password-message">
+  <p>Password must contain the following:</p>
+  <ul>
+    <li id="p-lower" class="invalid">❌ At least one lowercase letter</li>
+    <li id="p-upper" class="invalid">❌ At least one uppercase letter</li>
+    <li id="p-number" class="invalid">❌ At least one number</li>
+    <li id="p-special" class="invalid">❌ At least one special character (!@#$%^&*)</li>
+    <li id="p-length" class="invalid">❌ Minimum 8 characters</li>
+  </ul>
+</div>
+
+          </td>
+          <td>
+            <label for="confirm_password">Re-enter Password *</label>
+            <input type="password" id="confirm_password" name="confirm_password" maxlength="64" required title="Must match password." />
+          </td>
+        </tr>
+      </table>
+
+      <!-- Medical -->
+<h2 class="section-title">Medical</h2>
+
+<div class="medical-grid">
+
+  <!-- Gender -->
+  <div class="field-group">
+    <label class="group-title"><strong>Gender</strong></label>
+    <div class="option-row">
+      <label><input type="radio" name="gender" value="Male"> Male</label>
+      <label><input type="radio" name="gender" value="Female"> Female</label>
+      <label><input type="radio" name="gender" value="Other"> Other</label>
     </div>
-  </header>
+  </div>
 
-  <!-- Two-column layout: left=form, right=review -->
-  <main class="layout">
-    <section class="form-card" aria-labelledby="formTitle">
-      <h1 id="formTitle">Patient Registration Form</h1>
-      <p class="help">All fields marked with * are required.</p>
+  <!-- Insurance -->
+  <div class="field-group">
+    <label class="group-title"><strong>Insurance</strong></label>
+    <div class="option-row">
+      <label><input type="radio" name="insured" value="Yes"> Yes</label>
+      <label><input type="radio" name="insured" value="No"> No</label>
+    </div>
+    <label for="insurance_provider" class="group-title small">Insurance Provider</label>
+    <input type="text" id="insurance_provider" name="insurance_provider" maxlength="40" placeholder="Enter provider name">
+  </div>
 
-      <form id="patientForm" action="thankyou.html" method="post" novalidate>
-        <!-- Identity -->
-        <h2 class="section-title">Identity</h2>
-        <table role="presentation" class="form-table">
-          <tr>
-            <td>
-              <label for="firstname">First Name *</label>
-              <input type="text" id="firstname" name="firstname" required maxlength="30"
-                     title="Enter 1–30 characters; letters, apostrophes and dashes only"
-                     pattern="[A-Za-z' -]{1,30}" autocomplete="given-name" />
-              <span class="msg" id="msg-firstname"></span>
-            </td>
-            <td class="narrow">
-              <label for="middleinit">Middle Initial</label>
-              <input type="text" id="middleinit" name="middleinit" maxlength="1"
-                     title="Optional. Exactly 1 letter"
-                     pattern="[A-Za-z]{1}" autocomplete="additional-name" />
-              <span class="msg" id="msg-middleinit"></span>
-            </td>
-            <td>
-              <label for="lastname">Last Name *</label>
-              <input type="text" id="lastname" name="lastname" required maxlength="30"
-                     title="Enter 1–30 characters; letters, digits (2–5 allowed), apostrophes and dashes"
-                     pattern="[A-Za-z0-9' -]{1,30}" autocomplete="family-name" />
-              <span class="msg" id="msg-lastname"></span>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <label for="dob">Date of Birth *</label>
-              <input type="date" id="dob" name="dob" required
-                     title="Birthdate cannot be in the future or more than 120 years ago" />
-              <span class="msg" id="msg-dob"></span>
-            </td>
-            <td colspan="2">
-              <label for="ssn">ID / SSN (masked)</label>
-              <input type="password" id="ssn" name="ssn" maxlength="11"
-                     title="Optional. 9 digits; hyphens allowed (e.g., 123-45-6789)"
-                     pattern="\d{3}-?\d{2}-?\d{4}" autocomplete="off" />
-              <span class="msg" id="msg-ssn"></span>
-            </td>
-          </tr>
-        </table>
+  <!-- History -->
+  <div class="field-group">
+    <label class="group-title"><strong>History (check all that apply)</strong></label>
+    <div class="option-grid">
+      <label><input type="checkbox" name="chickenpox" value="Chickenpox"> Chickenpox</label>
+      <label><input type="checkbox" name="measles" value="Measles"> Measles</label>
+      <label><input type="checkbox" name="mumps" value="Mumps"> Mumps</label>
+      <label><input type="checkbox" name="covid19" value="COVID-19"> COVID-19</label>
+      <label><input type="checkbox" name="tetanus" value="Tetanus" /> Tetanus</label>
+    </div>
+  </div>
 
-        <!-- Contact -->
-        <h2 class="section-title">Contact</h2>
-        <table role="presentation" class="form-table">
-          <tr>
-            <td>
-              <label for="email">Email Address *</label>
-              <input type="email" id="email" name="email" required maxlength="64"
-                     title="Use the format name@domain.tld"
-                     autocomplete="email" />
-              <span class="msg" id="msg-email"></span>
-            </td>
-            <td>
-              <label for="phone">Phone *</label>
-              <input type="text" id="phone" name="phone" required maxlength="12"
-                     title="Use 000-000-0000 format"
-                     pattern="\d{3}-\d{3}-\d{4}"
-                     inputmode="numeric" autocomplete="tel" placeholder="000-000-0000" />
-              <span class="msg" id="msg-phone"></span>
-            </td>
-          </tr>
-        </table>
+  <!-- Vaccinated -->
+  <div class="field-group">
+    <label class="group-title"><strong>Vaccinated?</strong></label>
+    <div class="option-row">
+      <label><input type="radio" name="vaccinated" value="Yes"> Yes</label>
+      <label><input type="radio" name="vaccinated" value="No"> No</label>
+    </div>
+  </div>
 
-        <!-- Address -->
-        <h2 class="section-title">Address</h2>
-        <table role="presentation" class="form-table">
-          <tr>
-            <td colspan="3">
-              <label for="addr1">Address Line 1 *</label>
-              <input type="text" id="addr1" name="addr1" required maxlength="30"
-                     title="2–30 characters"
-                     pattern=".{2,30}" autocomplete="address-line1" />
-              <span class="msg" id="msg-addr1"></span>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="3">
-              <label for="addr2">Address Line 2</label>
-              <input type="text" id="addr2" name="addr2" maxlength="30"
-                     title="Optional. 2–30 characters"
-                     pattern="(.{2,30})?" autocomplete="address-line2" />
-              <span class="msg" id="msg-addr2"></span>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <label for="city">City *</label>
-              <input type="text" id="city" name="city" required maxlength="30"
-                     title="2–30 characters"
-                     pattern=".{2,30}" autocomplete="address-level2" />
-              <span class="msg" id="msg-city"></span>
-            </td>
-            <td>
-              <label for="state">State *</label>
-              <select id="state" name="state" required title="Choose a state">
-                <option value="">— Select —</option>
-                <option>AL</option><option>AK</option><option>AZ</option><option>AR</option><option>CA</option>
-                <option>CO</option><option>CT</option><option>DE</option><option>DC</option><option>FL</option>
-                <option>GA</option><option>HI</option><option>ID</option><option>IL</option><option>IN</option>
-                <option>IA</option><option>KS</option><option>KY</option><option>LA</option><option>ME</option>
-                <option>MD</option><option>MA</option><option>MI</option><option>MN</option><option>MS</option>
-                <option>MO</option><option>MT</option><option>NE</option><option>NV</option><option>NH</option>
-                <option>NJ</option><option>NM</option><option>NY</option><option>NC</option><option>ND</option>
-                <option>OH</option><option>OK</option><option>OR</option><option>PA</option><option>PR</option>
-                <option>RI</option><option>SC</option><option>SD</option><option>TN</option><option>TX</option>
-                <option>UT</option><option>VT</option><option>VA</option><option>WA</option><option>WI</option>
-                <option>WV</option><option>WY</option>
-              </select>
-              <span class="msg" id="msg-state"></span>
-            </td>
-            <td>
-              <label for="zip">ZIP Code *</label>
-              <input type="text" id="zip" name="zip" required maxlength="10"
-                     title="5 digits or ZIP+4 (e.g., 77002 or 77002-1234)"
-                     pattern="^\d{5}(-\d{4})?$" inputmode="numeric" autocomplete="postal-code" />
-              <span class="msg" id="msg-zip"></span>
-            </td>
-          </tr>
-        </table>
+  <!-- Salary -->
+<div class="field-group">
+  <label for="salary" class="group-title">
+    <strong>Desired Salary ($20,000–$200,000)</strong>
+  </label><br />
+  <input type="range" id="salary" name="salary" min="20000" max="200000" step="1000" value="80000"/>
+  <span id="salaryValue" class="slider-value">$80,000</span>
+</div>
 
-        <!-- Medical / Choices -->
-        <h2 class="section-title">Medical & Preferences</h2>
-        <table role="presentation" class="form-table">
-          <tr>
-            <td>
-              <fieldset>
-                <legend>Gender</legend>
-                <label><input type="radio" name="gender" value="M" title="Male"> Male</label>
-                <label><input type="radio" name="gender" value="F" title="Female"> Female</label>
-                <label><input type="radio" name="gender" value="O" title="Other"> Other</label>
-              </fieldset>
-            </td>
-            <td>
-              <fieldset>
-                <legend>Vaccinated?</legend>
-                <label><input type="radio" name="vaccinated" value="Y"> Yes</label>
-                <label><input type="radio" name="vaccinated" value="N"> No</label>
-                <label><input type="radio" name="vaccinated" value="U"> Unsure</label>
-              </fieldset>
-            </td>
-            <td>
-              <div><strong>History (check all that apply)</strong></div>
-              <label><input type="checkbox" name="hx" value="Chickenpox"> Chickenpox</label>
-              <label><input type="checkbox" name="hx" value="Measles"> Measles</label>
-              <label><input type="checkbox" name="hx" value="Mumps"> Mumps</label>
-              <label><input type="checkbox" name="hx" value="Heart Disease"> Heart Disease</label>
-              <label><input type="checkbox" name="hx" value="Covid-19"> Covid-19</label>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="3">
-              <label for="salary">Desired Salary ($20,000–$200,000)</label>
-              <input type="range" id="salary" name="salary" min="20000" max="200000" step="1000"
-                     title="Slide to choose a salary" oninput="updateSliderValue(this.value)" />
-              <span id="salaryValue" class="mono" aria-live="polite">$20,000</span>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="3">
-              <label for="symptoms">Current Symptoms / Notes</label>
-              <textarea id="symptoms" name="symptoms" cols="50" rows="3" maxlength="500"
-                        title="Optional. Avoid double quotes (\")"
-                        pattern="[^"]*" placeholder="Describe symptoms (e.g., headache, mild fever)…"></textarea>
-              <span class="msg" id="msg-symptoms"></span>
-            </td>
-          </tr>
-        </table>
+<!-- Home Budget -->
+<div class="field-group">
+  <label for="homeBudget" class="group-title">
+    <strong>Estimated Monthly Rent or Mortgage ($500–$5000)</strong>
+  </label><br />
+  <input type="range" id="homeBudget" name="homeBudget" min="500" max="5000" step="100" value="1500"/>
+  <span id="homeBudgetValue" class="slider-value">$1,500</span>
+</div>
 
-        <!-- Account -->
-        <h2 class="section-title">Account</h2>
-        <table role="presentation" class="form-table">
-          <tr>
-            <td>
-              <label for="userid">Desired User ID *</label>
-              <input type="text" id="userid" name="userid" required maxlength="30"
-                     title="5–30 chars; start with a letter; letters, numbers, _ or -; no spaces. Will be lowercased on review."
-                     pattern="[A-Za-z][A-Za-z0-9_-]{4,29}" autocomplete="username" />
-              <span class="msg" id="msg-userid"></span>
-            </td>
-            <td>
-              <label for="password">Password *</label>
-              <input type="password" id="password" name="password" required maxlength="30"
-                     title="8–30 chars; at least 1 upper, 1 lower, 1 digit, 1 special (no \" quotes)"
-                     pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}|:<>?~\-=/.,`~]).{8,30}" autocomplete="new-password" />
-              <span class="msg" id="msg-password"></span>
-            </td>
-            <td>
-              <label for="password2">Re-enter Password *</label>
-              <input type="password" id="password2" name="password2" required maxlength="30"
-                     title="Must match the first password" autocomplete="new-password" />
-              <span class="msg" id="msg-password2"></span>
-            </td>
-          </tr>
-        </table>
 
-        <!-- Consent & Actions -->
-        <div class="actions">
-          <label class="tos"><input type="checkbox" id="consent_tos" name="consent_tos" required /> I agree to the Terms of Service *</label>
-          <div class="buttons">
-            <button type="reset" class="button secondary">Start Over</button>
-            <button type="button" class="button ghost" id="reviewBtn">Review</button>
-            <button type="submit" class="button" id="submitBtn">Submit</button>
-          </div>
-        </div>
-      </form>
-    </section>
 
-    <!-- Review panel (right side) -->
-    <aside id="reviewSection" aria-labelledby="reviewTitle" hidden>
+  <!-- Notes -->
+  <div class="field-group">
+    <label for="symptoms" class="group-title"><strong>Current Symptoms / Notes</strong></label>
+    <textarea id="symptoms" name="symptoms" rows="3" maxlength="500" placeholder="Describe your current symptoms…"></textarea>
+  </div>
+</div>
+
+<!-- Consent + Buttons -->
+<div class="consent-row">
+  <label><input type="checkbox" name="consent_tos" required> I agree to the Terms of Service *</label>
+</div>
+
+<div class="button-row">
+  <button type="button" class="button secondary" id="reviewBtn">REVIEW</button>
+  <button type="reset" class="button secondary">CLEAR AND START OVER</button>
+  <button type="submit" class="button">SUBMIT</button>
+</div>
+
+    <!-- Review Panel -->
+    <aside id="reviewPanel" aria-labelledby="reviewTitle" hidden style="margin-top: 2em;">
       <h2 id="reviewTitle">Review Your Entries</h2>
-      <div class="review-grid">
-        <div class="row"><span class="label">Name</span><span id="r_name"></span><span id="p_name" class="pass"></span></div>
-        <div class="row"><span class="label">Date of Birth</span><span id="r_dob"></span><span id="p_dob"></span></div>
-        <div class="row"><span class="label">Email</span><span id="r_email"></span><span id="p_email"></span></div>
-        <div class="row"><span class="label">Phone</span><span id="r_phone"></span><span id="p_phone"></span></div>
-        <div class="row multi">
-          <span class="label">Address</span>
-          <div>
-            <div id="r_addr1"></div>
-            <div id="r_addr2"></div>
-            <div id="r_city_state_zip"></div>
-          </div>
-          <span id="p_address"></span>
-        </div>
-        <div class="row"><span class="label">History</span><span id="r_history"></span><span></span></div>
-        <div class="row"><span class="label">Vaccinated?</span><span id="r_vax"></span><span></span></div>
-        <div class="row"><span class="label">Salary</span><span id="r_salary"></span><span></span></div>
-        <div class="row"><span class="label">Symptoms</span><span id="r_symptoms"></span><span></span></div>
-        <div class="row"><span class="label">User ID</span><span id="r_userid"></span><span id="p_userid"></span></div>
-        <div class="row"><span class="label">Password</span><span id="r_password"></span><span id="p_password"></span></div>
+      <div class="review-grid" style="background:#f8f8f8; padding:1em; border-radius:8px; border:1px solid #ccc;">
+        <div class="row"><span class="label">Name:</span><span id="r_name"></span></div>
+        <div class="row"><span class="label">Date of Birth:</span><span id="r_dob"></span></div>
+        <div class="row"><span class="label">Email:</span><span id="r_email"></span></div>
+        <div class="row"><span class="label">Phone:</span><span id="r_phone"></span></div>
+        <div class="row"><span class="label">Address:</span><span id="r_addr1"></span><br /><span id="r_addr2"></span><br /><span id="r_city_state_zip"></span></div>
+        <div class="row"><span class="label">History:</span><span id="r_history"></span></div>
+        <div class="row"><span class="label">Vaccinated:</span><span id="r_vax"></span></div>
+        <div class="row"><span class="label">Desired Salary:</span><span id="r_salary"></span></div>
+        <div class="row"><span class="label">Monthly Home Budget:</span><span id="r_homeBudget"></span></div>
+        <div class="row"><span class="label">Symptoms:</span><span id="r_symptoms"></span></div>
+        <div class="row"><span class="label">User ID:</span><span id="r_userid"></span></div>
+        <div class="row"><span class="label">Password:</span><span id="r_password"></span></div>
       </div>
       <p class="note">(For security, we normally would not display the password.)</p>
     </aside>
+
   </main>
 
-  <footer id="footer">
+  <!-- ---------- Footer ---------- -->
+  <div id="footer">
     <div>V Care Medicals | Smith Street, Suite 1011, Houston, TX 77496</div>
-    <div><button class="button secondary" type="button" onclick="alert('Contact form coming soon!')">Contact Us</button></div>
-  </footer>
+    <div>
+      <button class="button secondary" onclick="alert('Contact form coming soon!')">Contact Us</button>
+    </div>
+  </div>
 </body>
 </html>

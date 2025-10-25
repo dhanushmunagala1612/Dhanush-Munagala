@@ -1,57 +1,311 @@
- /* 
-Program name: style.css
-Author: Dhanush Munagala
-Date created: 2025-09-26
-Date last edited: 2025-09-26
-Version: 2.0
-Description: Styles for MIS7375 Homework 1 Patient Registration Form.
-*/
+/* =========================
+   style.css — V Care Medicals
+   ========================= */
 
-/* Tag selectors */
+/* General Page */
 body {
-  background: #f6f7fb;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: #233142;
+  font-family: "Segoe UI", Arial, sans-serif;
   margin: 0;
+  padding: 0;
+  background-color: #f4f7fa;
+  color: #222;
 }
-h1, h2, h3 { color: #1a5276; }
-a { color: #0d6efd; text-decoration: none; }
-a:visited { color: #6c3483; }
-table { border-collapse: separate; border-spacing: 12px; width: 100%; }
-th, td { vertical-align: top; }
 
-/* Class selectors */
+/* Banner Layout */
 .banner {
-  display: flex; align-items: center; gap: 16px;
-  padding: 14px 18px; background: #e8f0fe; border-bottom: 3px solid #cfd8ff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0c5273;
+  color: white;
+  padding: 1.2em 2em;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
 }
-.banner .brand { font-size: 1.25rem; font-weight: 700; }
+
+/* Left side: logo + name */
+.banner-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.banner-left img {
+  width: 140px;
+  height: 140px;
+  border-radius: 12px;
+  border: 3px solid #ffffffcc;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.banner-left .brand {
+  font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 2.3em;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Right side: date */
+.banner-right .help {
+  font-size: 1.1em;
+  font-style: italic;
+  color: #dbe9f4;
+  text-align: right;
+}
+
+/* Main Form */
 .form-card {
-  max-width: 980px; margin: 18px auto; background: #fff;
-  border-radius: 12px; padding: 18px 22px; box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  max-width: 950px;
+  margin: 1.5em auto;
+  background: white;
+  padding: 2em;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+.form-card h1 {
+  text-align: center;
+  color: #0c5273;
 }
 .section-title {
-  margin-top: 16px; padding-bottom: 6px; border-bottom: 2px solid #eef2f7;
-  color: #0e6655; font-weight: 700;
+  border-bottom: 2px solid #0c5273;
+  margin-top: 1.8em;
+  padding-bottom: 0.3em;
+  color: #0c5273;
 }
-.help { font-size: 0.9rem; color: #5f6b7a; }
+.help {
+  color: #555;
+  font-style: italic;
+}
 
-/* ID selectors */
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1em;
+}
+td {
+  padding: 0.5em;
+  vertical-align: top;
+}
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.3em;
+}
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 0.95em;
+}
+
+/* Buttons */
+.button {
+  background-color: #0c5273;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7em 1.3em;
+  font-size: 1em;
+  cursor: pointer;
+  margin-right: 10px;
+}
+.button.secondary {
+  background-color: #aaa;
+}
+.button:hover {
+  opacity: 0.9;
+}
+
+/* Review Panel */
+.review-grid {
+  background: #f8f8f8;
+  padding: 1em;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  row-gap: 0.5em;
+  column-gap: 1em;
+  margin-top: 1em;
+}
+.review-grid .label {
+  font-weight: bold;
+  color: #0c5273;
+}
+.review-grid span {
+  color: #333;
+}
+.note {
+  font-style: italic;
+  font-size: 0.9em;
+  margin-top: 0.8em;
+}
+
+/* Footer */
 #footer {
-  margin-top: 32px; background: #eaf2f8; padding: 16px 22px;
-  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  background: #0c5273;
+  color: white;
+  text-align: center;
+  padding: 1.5em;
+  font-size: 0.95em;
 }
-#submitRow { text-align: center; }
-
-/* Attribute selector by name */
-input[name="firstname"], input[name="lastname"] { text-transform: capitalize; }
-
-/* Inputs */
-input[type="text"], input[type="password"], input[type="email"], select, textarea {
-  width: 100%; padding: 10px 12px; border: 1px solid #cfd8e3; border-radius: 8px; font-size: 1rem;
+#footer button {
+  margin-top: 10px;
 }
-textarea { resize: vertical; min-height: 96px; }
-input[type="range"] { width: 100%; }
-.button { display: inline-block; padding: 10px 16px; border-radius: 8px; border: none;
-  cursor: pointer; background: #0d6efd; color: white; font-weight: 600; }
-.button.secondary { background: #aeb6bf; color: #233142; }
+
+/* Password validation box */
+.password-message {
+  display: none;
+  background: #f9f9f9;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0.8em 1em;
+  margin-top: 0.5em;
+  font-size: 0.9em;
+  line-height: 1.4em;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.password-message ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0.5em 0 0;
+}
+
+.password-message li {
+  margin-bottom: 0.2em;
+}
+
+.password-message .valid {
+  color: green;
+}
+
+.password-message .invalid {
+  color: red;
+}
+
+.field-error {
+  color: #b00020;
+  font-size: 0.9em;
+  margin-top: 4px;
+  min-height: 1.1em;
+}
+
+/* ===============================
+   New Medical Section Grid Layout
+   =============================== */
+.medical-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 28px;
+  margin-top: 1em;
+}
+
+.field-group {
+  display: block;
+  padding: 12px 14px;
+  border: 1px solid #d0d7de;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.group-title {
+  display: block;
+  margin-bottom: 6px;
+  color: #0c5273;
+  font-weight: 600;
+}
+
+.group-title.small {
+  font-size: 0.9rem;
+  margin-top: 6px;
+  color: #333;
+}
+
+.option-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  margin-top: 4px;
+}
+
+.option-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px 16px;
+  margin-top: 6px;
+}
+
+.medical-grid label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.medical-grid input[type="radio"],
+.medical-grid input[type="checkbox"] {
+  transform: scale(1.2);
+}
+
+/* Consent + Buttons */
+.consent-row {
+  margin-top: 1.5em;
+  padding: 0.8em 0;
+  text-align: left;
+}
+
+.button-row {
+  text-align: center;
+  margin-top: 1.5em;
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+  .medical-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Do NOT stretch radios/checkboxes */
+input[type="checkbox"],
+input[type="radio"] {
+  width: auto;          /* overrides the 100% */
+  height: 1.1em;        /* a touch bigger looks nicer */
+  margin: 0;            /* remove odd offsets */
+  display: inline-block;
+}
+
+/* Keep label text snug to the box everywhere */
+.medical-grid label,
+.consent-row label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;             /* small, consistent spacing */
+}
+.slider-value {
+  display: inline-block;
+  margin-left: 10px;
+  font-weight: 600;
+  color: #0c5273;
+}
+.consent-row label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.consent-row input[type="checkbox"] {
+  transform: scale(1.2);
+}
+#salary, #homeBudget {
+  width: 90%;
+}
